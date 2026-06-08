@@ -8,10 +8,6 @@ const getCategories = asyncHandler( async ( req, res ) => {
     
     const categories = await Category.find().select("name image");
 
-    if (!categories.length) {
-        throw ApiError.serverError("something wents wrong while fetching categories");
-    }
-
     return res.status(200).json(
         ApiResponse.okResponse({
             categories: categories
