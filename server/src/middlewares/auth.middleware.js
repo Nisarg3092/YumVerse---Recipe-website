@@ -25,7 +25,7 @@ const jwtVerify = asyncHandler(async (req, res, next) => {
         next();
 
     } catch (error) {
-        throw ApiError.unauthorised("invalid or expired access token");
+        throw ApiError.unauthorised(`invalid or expired access token ${error}`);
     }
 
 })

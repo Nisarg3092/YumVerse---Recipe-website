@@ -42,23 +42,22 @@ const unlikeRecipe = asyncHandler(async (req, res) => {
 
     const { recipeId } = req.params;
 
-    const recipe = await Recipe.findById(recipeId).select("likeCount");
+    const recipe = await Recipe.findById(recipeId).select("likesCount");
 
     if(!recipe) {
-        throw ApiError.notFound("Recipe like count not found");
+        throw ApiError.notFound("Recipe not found");
     }
 
-    const unlikeRemove = await Like.findOneAndDelete({
+    const unlike = await Like.findOneAndDelete({
         likedBy: req.user?._id,
         recipe: recipeId
     });
 
-    if (!unlikeRemove) {
-        throw ApiError.serverError("something wents wrong while unliking recipe");
+    if(unlike) {
+        recipe.likesCount = Math.max(0, recipe.likesCount - 1);
     }
-
-    recipe.likesCount -= 1;
-    await likesCount.save({validateBeforeSave: false});
+    
+    await recipe.save({validateBeforeSave: false});
 
     return res.status(200).json(
         ApiResponse.okResponse(

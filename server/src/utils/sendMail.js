@@ -22,8 +22,8 @@ const sendMail = async (to, subject, html) => {
       html: html
     });
 
-  } catch (err) {
-    throw ApiError.serverError("Failed to send email ");
+  } catch (error) {
+    throw ApiError.serverError(`Failed to send email \n ${error}`);
   }
 
 };

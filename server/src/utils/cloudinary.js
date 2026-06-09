@@ -21,16 +21,19 @@ const getPublicId = (url) => {
 const uploadOnCloudinary = async (localFilePath) => {
     try {
         if (!localFilePath) {
-            return ApiError.badRequest("Invalid Localfile path");
+            throw ApiError.badRequest("Invalid Localfile path");
         }
         const response = await cloudinary.uploader.upload(localFilePath, {
             resource_type: "auto"
         });
-        
-        fs.unlinkSync(localFilePath);
+
         return response;
     } catch (error) {
-        return ApiError.serverError("Something wents wrong while uploading file on cloudinary");
+        throw ApiError.serverError(`Something wents wrong while uploading file on cloudinary \n ${error}`);
+    } finally {
+        if (localFilePath && fs.existsSync(localFilePath)) {
+            fs.unlinkSync(localFilePath);
+        }
     }
 }
 
@@ -46,7 +49,7 @@ const unlinkOnCloudinary = async (cloudinaryUrl) => {
 
         return response;
     } catch (error) {
-        throw ApiError.serverError("Something wents wrong while unlinking file on cloudinary");
+        throw ApiError.serverError(`Something wents wrong while unlinking file on cloudinary\n ${error}`);
     }
 }
 

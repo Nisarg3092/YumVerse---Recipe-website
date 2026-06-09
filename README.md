@@ -2,61 +2,108 @@
 
 A scalable REST API for a recipe sharing platform built with Node.js, Express.js, and MongoDB.
 
-## Overview
+---
 
-YumVerse API powers a recipe platform where users can create, manage, review, like, and discover recipes through secure and well-structured endpoints.
+## 🌐 Live Demo
 
-This project focuses on backend architecture, authentication, validation, database design, and API security.
+### API Base URL
 
-## Features
+https://yumverse-api.onrender.com/api/v1
 
-### Authentication
+### Live Health Check
 
-* User registration
-* User login
-* JWT authentication
-* Secure password hashing with bcrypt
+https://yumverse-api.onrender.com/api/v1
 
-### Recipe Management
+### GitHub Repository
 
-* Create recipes
-* Update recipes
-* Delete recipes
-* Fetch recipes
-* SEO-friendly recipe slugs
+https://github.com/Nisarg3092/YumVerse---Recipe-website
 
-### Categories
+---
 
-* Categories
-* Subcategories
+## 🚀 Highlights
 
-### Reviews
+* RESTful API Architecture
+* JWT Authentication & Authorization
+* Refresh Token Mechanism
+* Password Reset Workflow
+* MongoDB Database Design
+* Cloudinary Media Storage
+* Request Validation using Joi
+* Express Rate Limiting
+* Error Handling Middleware
+* Production Deployment on Render
+* Automated API Testing with Postman
 
-* Add reviews
-* Update reviews
-* Delete reviews
-* View recipe reviews
+---
 
-### Social Features
+## 📖 Overview
 
-* Like recipes
-* Follow users
-* User profiles
+YumVerse API powers a recipe-sharing platform where users can create, manage, review, like, and discover recipes through secure and well-structured endpoints.
 
-### Security
+The project focuses on backend architecture, authentication, validation, security, database design, and scalable API development.
 
-* JWT protected routes
-* Request validation using Joi
-* Rate limiting
-* Environment variable management
-* Error handling middleware
+---
 
-### Media Uploads
+## ✨ Features
 
-* Cloudinary integration
-* Multer file uploads
+### 🔐 Authentication
 
-## Tech Stack
+* User Registration
+* User Login
+* User Logout
+* JWT Authentication
+* Refresh Token System
+* Password Hashing with bcrypt
+* Forgot Password
+* Reset Password
+
+### 🍲 Recipe Management
+
+* Create Recipes
+* Update Recipes
+* Delete Recipes
+* Fetch Recipes
+* SEO-Friendly Recipe Slugs
+* Recipe Image Uploads
+
+### 🗂 Categories & Subcategories
+
+* Retrieve Categories
+* Retrieve Subcategories
+* Category-Based Recipe Organization
+
+### ⭐ Reviews
+
+* Add Reviews
+* Update Reviews
+* Delete Reviews
+* View Recipe Reviews
+
+### 👥 Social Features
+
+* Like Recipes
+* Unlike Recipes
+* Follow Users
+* Unfollow Users
+* User Profiles
+
+### 🛡 Security
+
+* JWT Protected Routes
+* Request Validation using Joi
+* Express Rate Limiting
+* Environment Variable Management
+* Centralized Error Handling
+
+### 📸 Media Uploads
+
+* Multer File Uploads
+* Cloudinary Integration
+* Cloud-Based Image Storage
+
+---
+
+## 🛠 Tech Stack
 
 ### Backend
 
@@ -65,7 +112,7 @@ This project focuses on backend architecture, authentication, validation, databa
 
 ### Database
 
-* MongoDB
+* MongoDB Atlas
 * Mongoose
 
 ### Authentication
@@ -77,7 +124,7 @@ This project focuses on backend architecture, authentication, validation, databa
 
 * Joi
 
-### File Uploads
+### Media Storage
 
 * Multer
 * Cloudinary
@@ -87,8 +134,11 @@ This project focuses on backend architecture, authentication, validation, databa
 * Morgan
 * Cookie Parser
 * Express Rate Limit
+* Nodemailer
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```text
 src/
@@ -104,10 +154,12 @@ src/
 └── index.js
 ```
 
-## Installation
+---
+
+## ⚙️ Installation
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Nisarg3092/YumVerse---Recipe-website.git
 
 cd server
 
@@ -116,7 +168,9 @@ npm install
 npm run dev
 ```
 
-## Environment Variables
+---
+
+## 🔑 Environment Variables
 
 Create a `.env` file:
 
@@ -136,17 +190,71 @@ CORS_ORIGIN=
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
+
+EMAIL_USER=
+EMAIL_PASS=
 ```
 
-## API Base URL
+---
 
-```text
-/api/v1
-```
+## 📬 API Testing
 
-## Author
+The API can be tested using Postman.
 
-Nisarg Vaghela
+The provided collection includes automated workflows and dynamic variables that reduce manual testing effort.
+
+### Collection Variables
+
+* EMAIL
+* USERNAME
+* USER_ID
+* CATEGORY_ID
+* SUB_CATEGORY_ID
+* RECIPE_ID
+* REVIEW_ID
+* RESET_TOKEN
+
+### Included Workflows
+
+* User Registration
+* User Authentication
+* Password Reset
+* Recipe Management
+* Review Management
+* Like & Unlike Recipes
+* Follow & Unfollow Users
+* Category & Subcategory Retrieval
+
+---
+
+## 🚀 Deployment
+
+The API is deployed using:
+
+* Render Web Service
+* MongoDB Atlas
+* Cloudinary
+* Gmail SMTP
+
+---
+
+## 📈 Future Improvements
+
+* Swagger / OpenAPI Documentation
+* Email Verification System
+* React Frontend Application
+* Advanced Search & Filtering
+* Recipe Bookmarking
+* Admin Dashboard
+
+---
+
+## 👨‍💻 Author
+
+### Nisarg Vaghela
 
 LinkedIn:
 https://www.linkedin.com/in/nisarg3092/
+
+GitHub:
+https://github.com/Nisarg3092

@@ -26,33 +26,38 @@ const resetPasswordTemplate = (resetToken, username) => {
         </p>
 
         <p>
-            Click the button below to create a new password.
+            Since YumVerse is currently API-only, use the token below in the
+            Reset Password endpoint.
         </p>
 
         <div style="
-            text-align: center;
-            margin: 35px 0;
+            background-color: #f4f4f5;
+            border: 1px solid #d4d4d8;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 25px 0;
+            word-break: break-all;
+            font-family: monospace;
         ">
-
-            <a 
-                href="http://localhost:3000/api/v1/auth/reset-password/${resetToken}"
-                style="
-                    background-color: #2563eb;
-                    color: white;
-                    padding: 14px 28px;
-                    text-decoration: none;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    display: inline-block;
-                "
-            >
-                Reset Password
-            </a>
-
+            ${resetToken}
         </div>
 
         <p>
-            This link will expire in 10 minutes.
+            Endpoint:
+        </p>
+
+        <div style="
+            background-color: #f9fafb;
+            border-left: 4px solid #2563eb;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-family: monospace;
+        ">
+            POST /api/v1/auth/reset-password/:token
+        </div>
+
+        <p>
+            This token will expire in 10 minutes.
         </p>
 
         <p>

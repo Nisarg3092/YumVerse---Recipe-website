@@ -22,7 +22,7 @@ const generateTokens = async (userId) => {
         return { accessToken, refreshToken };
 
     } catch (error) {
-        throw ApiError.serverError("something wents wrong while generating access and refresh tokens \n", error);
+        throw ApiError.serverError(`something wents wrong while generating access and refresh tokens \n ${error}`);
     }
 }
 
@@ -40,21 +40,6 @@ const registerUser = asyncHandler(async (req, res) => {
     if (existedUser) {
         throw ApiError.conflict("User with email or username already exists");
     }
-
-    // const query = { email, username, password };
-
-    // const avatarLocalPath = req.files?.avatar[0]?.path;
-
-    // let avatar;
-    // if (avatarLocalPath) {
-    //     avatar = await uploadOnCloudinary(avatarLocalPath);
-
-    //     if (!avatar) {
-    //         throw ApiError.serverError("Failed to upload avatar");
-    //     }
-
-    //     query.avatar = avatar.secure_url;
-    // }
 
     let avatarUri;
 
@@ -125,9 +110,15 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const forgetPassword = asyncHandler(async (req, res) => {
 
-    const { email } = req.body.email.trim().toLowerCase();
+    const email = req.body.email.trim().toLowerCase();
+
+    console.log(email);
+    
 
     const user = await User.findOne({ email });
+
+    console.log(user);
+    
 
     if (!user) {
         return res.status(200).json(
@@ -153,7 +144,9 @@ const forgetPassword = asyncHandler(async (req, res) => {
     await sendMail(email, subject, emailHtml);
 
     return res.status(200).json(
-        ApiResponse.okResponse({}, "If an account exists, a reset link has been sent.")
+        ApiResponse.okResponse({
+            resetToken: resetToken  // TEMPORARY: remove after frontend implementation
+        }, "If an account exists, a reset link has been sent.")
     )
 
 });
@@ -202,7 +195,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
 
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
+    const incomingRefreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
 
     if (!incomingRefreshToken) {
         throw ApiError.unauthorised("refresh token not found");
