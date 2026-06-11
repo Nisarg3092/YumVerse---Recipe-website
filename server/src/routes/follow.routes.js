@@ -14,9 +14,10 @@ const router = Router();
 
 router.use(jwtVerify);
 
+router.route("/followings").get(getUserFollowings)
+
 router.route("/:userId")
     .all(validate(userIdSchema, "params"))
-    .get(getUserFollowings)
     .post(followUser)
     .delete(unfollowUser);
 

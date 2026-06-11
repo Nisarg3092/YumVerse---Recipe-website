@@ -206,8 +206,23 @@ const addRecipe = asyncHandler(async (req, res) => {
 
     const { title, description, cookingTime, difficulty, category, subCategory } = req.body;
 
-    const ingredients = JSON.parse(req.body.ingredients);
-    const instructions = JSON.parse(req.body.instructions);
+    let ingredients = [];
+    let instructions = [];
+
+    try {
+        ingredients = JSON.parse(req.body.ingredients);
+        instructions = JSON.parse(req.body.instructions);
+    } catch {
+        ingredients = req.body.ingredients
+            .split("||")
+            .map(item => item.trim())
+            .filter(Boolean);
+
+        instructions = req.body.instructions
+            .split("||")
+            .map(item => item.trim())
+            .filter(Boolean);
+    }
 
     if (
         ingredients.length === 0 ||
@@ -277,29 +292,6 @@ const updateRecipe = asyncHandler(async (req, res) => {
     const { title, description, cookingTime, difficulty, category, subCategory } = req.body;
 
     const { recipeId } = req.params;
-
-    let ingredients;
-    let instructions;
-
-    if (req.body.ingredients) {
-        ingredients = JSON.parse(req.body.ingredients);
-
-        if (!Array.isArray(ingredients) || ingredients.length === 0) {
-            throw ApiError.badRequest(
-                "At least one ingredient is required"
-            );
-        }
-    }
-
-    if (req.body.instructions) {
-        instructions = JSON.parse(req.body.instructions);
-
-        if (!Array.isArray(instructions) || instructions.length === 0) {
-            throw ApiError.badRequest(
-                "At least one instruction is required"
-            );
-        }
-    }
 
     const recipe = await Recipe.findById(recipeId);
 
@@ -441,7 +433,7 @@ const saveRecipe = asyncHandler(async (req, res) => {
 
     res.status(200).json(
         ApiResponse.okResponse({
-            savedRecipe: recipe 
+            savedRecipe: recipe
         }, "Recipe is saved successfully"
         )
     );

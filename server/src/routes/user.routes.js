@@ -39,7 +39,7 @@ router.route("/update-account")
 router.route("/avatar")
     .patch(upload.single('avatar'), updateUserAvatar);
 
-router.route("/saved-racipe")
+router.route("/saved-recipe")
     .get(getSavedRecipes);
 
 router.route("/current-user")

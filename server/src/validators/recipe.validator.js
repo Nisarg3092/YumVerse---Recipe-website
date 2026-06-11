@@ -127,7 +127,7 @@ const updateRecipeSchema = Joi.object({
         }),
 
     ingredients: Joi.array()
-        .items(Joi.string().trim())
+        .items(Joi.string().trim().min(1))
         .min(1)
         .messages({
             "array.base": "Ingredients must be an array",
@@ -135,7 +135,7 @@ const updateRecipeSchema = Joi.object({
         }),
 
     instructions: Joi.array()
-        .items(Joi.string().trim())
+        .items(Joi.string().trim().min(1))
         .min(1)
         .messages({
             "array.base": "Instructions must be an array",

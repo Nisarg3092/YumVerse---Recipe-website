@@ -7,12 +7,11 @@ const asyncHandler = require("../utils/asyncHandler");
 
 const getUserFollowings = asyncHandler(async (req, res) => {
 
-    const { userId } = req.params;
 
     const followings = await Follow.aggregate([
         {
             $match: {
-                follower: new mongoose.Types.ObjectId(userId)
+                follower: new mongoose.Types.ObjectId(req.user?._id)
             }
         },
         {

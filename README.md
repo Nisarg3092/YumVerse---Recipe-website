@@ -1,6 +1,6 @@
 # 🍽️ YumVerse API
 
-A scalable REST API for a recipe sharing platform built with Node.js, Express.js, and MongoDB.
+A scalable REST API for a recipe sharing platform built with Node.js, Express.js, MongoDB, and Cloudinary.
 
 ---
 
@@ -9,6 +9,10 @@ A scalable REST API for a recipe sharing platform built with Node.js, Express.js
 ### API Base URL
 
 https://yumverse-api.onrender.com/api/v1
+
+### Swagger Documentation
+
+https://yumverse-api.onrender.com/api-docs
 
 ### Live Health Check
 
@@ -23,6 +27,7 @@ https://github.com/Nisarg3092/YumVerse---Recipe-website
 ## 🚀 Highlights
 
 * RESTful API Architecture
+* Swagger / OpenAPI Documentation
 * JWT Authentication & Authorization
 * Refresh Token Mechanism
 * Password Reset Workflow
@@ -30,7 +35,7 @@ https://github.com/Nisarg3092/YumVerse---Recipe-website
 * Cloudinary Media Storage
 * Request Validation using Joi
 * Express Rate Limiting
-* Error Handling Middleware
+* Centralized Error Handling
 * Production Deployment on Render
 * Automated API Testing with Postman
 
@@ -38,9 +43,28 @@ https://github.com/Nisarg3092/YumVerse---Recipe-website
 
 ## 📖 Overview
 
-YumVerse API powers a recipe-sharing platform where users can create, manage, review, like, and discover recipes through secure and well-structured endpoints.
+YumVerse API powers a recipe-sharing platform where users can create, manage, review, save, like, and discover recipes through secure and well-structured endpoints.
 
-The project focuses on backend architecture, authentication, validation, security, database design, and scalable API development.
+The project focuses on backend architecture, authentication, validation, security, database design, API documentation, and scalable REST API development.
+
+---
+
+## 📚 API Documentation
+
+Interactive API documentation is available through Swagger UI.
+
+Features:
+
+* Interactive API Testing
+* JWT Authorization Support
+* Request & Response Documentation
+* File Upload Documentation
+* Path Parameter Documentation
+* OpenAPI 3.0 Specification
+
+Documentation URL:
+
+https://yumverse-api.onrender.com/api-docs
 
 ---
 
@@ -63,6 +87,8 @@ The project focuses on backend architecture, authentication, validation, securit
 * Update Recipes
 * Delete Recipes
 * Fetch Recipes
+* Save Recipes
+* Unsave Recipes
 * SEO-Friendly Recipe Slugs
 * Recipe Image Uploads
 
@@ -70,7 +96,6 @@ The project focuses on backend architecture, authentication, validation, securit
 
 * Retrieve Categories
 * Retrieve Subcategories
-* Category-Based Recipe Organization
 
 ### ⭐ Reviews
 
@@ -86,6 +111,7 @@ The project focuses on backend architecture, authentication, validation, securit
 * Follow Users
 * Unfollow Users
 * User Profiles
+* Saved Recipes
 
 ### 🛡 Security
 
@@ -124,6 +150,11 @@ The project focuses on backend architecture, authentication, validation, securit
 
 * Joi
 
+### Documentation
+
+* Swagger UI
+* OpenAPI 3.0
+
 ### Media Storage
 
 * Multer
@@ -144,13 +175,16 @@ The project focuses on backend architecture, authentication, validation, securit
 src/
 ├── controllers/
 ├── db/
+├── docs/
 ├── middlewares/
 ├── models/
+├── postman/
 ├── routes/
 ├── template/
 ├── utils/
 ├── validators/
 ├── app.js
+├── constant.js
 └── index.js
 ```
 
@@ -199,9 +233,14 @@ EMAIL_PASS=
 
 ## 📬 API Testing
 
-The API can be tested using Postman.
+The API can be tested using:
 
-The provided collection includes automated workflows and dynamic variables that reduce manual testing effort.
+* Swagger UI Documentation
+* Postman Collection
+
+Swagger provides interactive API testing directly from the browser.
+
+The Postman collection includes automated workflows and dynamic variables for end-to-end testing.
 
 ### Collection Variables
 
@@ -240,11 +279,9 @@ The API is deployed using:
 
 ## 📈 Future Improvements
 
-* Swagger / OpenAPI Documentation
 * Email Verification System
 * React Frontend Application
 * Advanced Search & Filtering
-* Recipe Bookmarking
 * Admin Dashboard
 
 ---
@@ -253,8 +290,10 @@ The API is deployed using:
 
 ### Nisarg Vaghela
 
-LinkedIn:
+LinkedIn
+
 https://www.linkedin.com/in/nisarg3092/
 
-GitHub:
+GitHub
+
 https://github.com/Nisarg3092

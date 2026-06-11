@@ -1,0 +1,1013 @@
+{
+  "info": {
+    "_postman_id": "7afb7b63-a54b-426c-ba2a-edabc5eb1311",
+    "name": "YumVerse",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37613296",
+    "_collection_link": "https://go.postman.co/collection/37613296-7afb7b63-a54b-426c-ba2a-edabc5eb1311?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getRandomAvatar() {",
+                  "    const avatar = [\"male\",\"female\"];",
+                  "",
+                  "    return avatar[Math.floor(Math.random() * avatar.length)];",
+                  "}",
+                  "",
+                  "pm.collectionVariables.set(\"randomAvatar\",getRandomAvatar())"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json().data;",
+                  "",
+                  "pm.collectionVariables.set(",
+                  "    \"USERNAME\",",
+                  "    data.createdUser.username",
+                  ");",
+                  "",
+                  "pm.collectionVariables.set(",
+                  "    \"EMAIL\",",
+                  "    data.createdUser.email",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@gmail.com\",\n  \"username\": \"usernmae\",\n  \"avatar\": {{randomAvatar}},\n  \"password\": \"12345678\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@gmail.com\",\n  \"password\": \"12345678\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json().data;",
+                  "",
+                  "pm.collectionVariables.set(",
+                  "    \"RESET_TOKEN\",",
+                  "    data.resetToken",
+                  ");",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/forgot-password",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"12345678\",\n  \"confirmPassword\": \"12345678\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/reset-password/{{RESET_TOKEN}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password",
+                "{{RESET_TOKEN}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/auth/refresh-token",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/auth/logout",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/users/profile/{{USERNAME}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "profile",
+                "{{USERNAME}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Recipes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/users/profile/{{USERNAME}}/recipes",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "profile",
+                "{{USERNAME}}",
+                "recipes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Saved Recipe",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/users/saved-recipe",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "saved-recipe"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Current User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/users/current-user",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "current-user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"12345678\",\n  \"newPassword\": \"123456789\",\n  \"confirmPassword\": \"123456789\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/users/change-password",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "change-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Account",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"username\",\n  \"bio\": \"Passionate food lover and recipe creator.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/users/update-account",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "update-account"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Avatar",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "uuid": "c51951fd-3ee0-4b31-bb30-4c083856a2bf",
+                  "src": "ChatGPT Image Apr 22, 2026, 04_03_10 PM.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/users/avatar",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Recipe",
+      "item": [
+        {
+          "name": "Recipes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Single Recipe",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/{{SLUG}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                "{{SLUG}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getRandomDifficulty() {",
+                  "    const difficulty = [\"Easy\",\"Medium\",\"Hard\"];",
+                  "",
+                  "    return difficulty[Math.floor(Math.random() * difficulty.length)];",
+                  "}",
+                  "",
+                  "pm.collectionVariables.set(\"randomDifficulty\",getRandomDifficulty())"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json().data;",
+                  "",
+                  "pm.collectionVariables.set(",
+                  "    \"RECIPE_ID\",",
+                  "    data.recipe._id",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "title 2",
+                  "type": "text",
+                  "uuid": "f9010c71-1804-4186-a491-ddfb6a618e7e"
+                },
+                {
+                  "key": "description",
+                  "value": "this is the description of recipe title 2",
+                  "type": "text",
+                  "uuid": "c0a7734e-8be2-4c41-b346-79b01316980f"
+                },
+                {
+                  "key": "cookingTime",
+                  "value": "20",
+                  "type": "text",
+                  "uuid": "7b6fa5a6-1007-49c4-8037-f531ba48b4a8"
+                },
+                {
+                  "key": "difficulty",
+                  "value": "{{randomDifficulty}}",
+                  "type": "text",
+                  "uuid": "9380c10d-16f9-4fce-9e6a-a7161d0ecbce"
+                },
+                {
+                  "key": "category",
+                  "value": "{{CATEGORY_ID}}",
+                  "type": "text",
+                  "uuid": "a1181598-0030-4a05-a652-409db7be3759"
+                },
+                {
+                  "key": "subCategory",
+                  "value": "{{SUB_CATEGORY_ID}}",
+                  "type": "text",
+                  "uuid": "b84d1581-da74-4cac-b9ca-d1f1475d1744"
+                },
+                {
+                  "key": "recipeImages",
+                  "type": "file",
+                  "uuid": "a1f1174b-a350-4b6c-a46a-1f4a9c46a2b8",
+                  "src": [
+                    "postman-cloud:///1f0608f5-f33d-4e70-8d6f-8e8227011cc2",
+                    "postman-cloud:///1f0a207b-2f84-4050-8ccb-707c57ba7d24"
+                  ]
+                },
+                {
+                  "key": "ingredients",
+                  "value": "[\"tomato\",\"potato\"]",
+                  "type": "text",
+                  "uuid": "e938754b-9c96-45e8-a72a-ce7072478a9f"
+                },
+                {
+                  "key": "instructions",
+                  "value": "[\"step 1\",\"step 2\", \"step 3\"]",
+                  "type": "text",
+                  "uuid": "ddf22f73-4c4a-4947-a9fc-1716fbe1db61"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n//   \"title\": \"Creamy Tomato Pasta\",\n//   \"description\": \"Delicious creamy tomato pasta recipe\",\n//   \"difficulty\": \"Easy\",\n//   \"category\": \"6a27da6e1965a4572375c62f\",\n//   \"subCategory\": \"6a29981502735af86768fb18\",\n//   \"ingredients\": [\n//     \"tomato\",\n//     \"pasta\",\n//     \"cream\"\n//   ],\n//   \"instructions\": [\n//     \"Boil pasta\",\n//     \"Prepare sauce\",\n//     \"Serve\"\n//   ]\n  \"cookingTime\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/id/{{RECIPE_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                "id",
+                "{{RECIPE_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Images",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "recipeImages",
+                  "type": "file",
+                  "uuid": "b611516a-cfa4-4c46-8bd8-1c9e73d35525",
+                  "src": [
+                    "/Users/nisarg/Downloads/_ (60).jpeg",
+                    "/Users/nisarg/Downloads/ChatGPT Image Apr 22, 2026, 04_03_10 PM.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/id/{{RECIPE_ID}}/images",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                "id",
+                "{{RECIPE_ID}}",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/id/{{RECIPE_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                "id",
+                "{{RECIPE_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/id/{{RECIPE_ID}}/save",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                "id",
+                "{{RECIPE_ID}}",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unsave",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/id/{{RECIPE_ID}}/save",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "recipes",
+                "id",
+                "{{RECIPE_ID}}",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "item": [
+        {
+          "name": "Reviews",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/reviews/{{RECIPE_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "reviews",
+                "{{RECIPE_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json().data;",
+                  "",
+                  "pm.collectionVariables.set(",
+                  "    \"REVIEW_ID\",",
+                  "    data.review._id",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 4,\n  \"comment\": \"This recipe was delicious and easy to make.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/reviews/{{RECIPE_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "reviews",
+                "{{RECIPE_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 2,\n  \"comment\": \"rwview Updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/reviews/id/{{REVIEW_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "reviews",
+                "id",
+                "{{REVIEW_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/reviews/id/{{REVIEW_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "reviews",
+                "id",
+                "{{REVIEW_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Follow",
+      "item": [
+        {
+          "name": "Followings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/follows/followings",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "follows",
+                "followings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Follow User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/follows/{{USER_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "follows",
+                "{{USER_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unfollow User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/follows/{{USER_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "follows",
+                "{{USER_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Like",
+      "item": [
+        {
+          "name": "Like Recipe",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/likes/{{RECIPE_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "likes",
+                "{{RECIPE_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unlike Recipe",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/likes/{{RECIPE_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "likes",
+                "{{RECIPE_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/categories",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "SubCategory",
+      "item": [
+        {
+          "name": "Sub Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/subcategories/{{CATEGORY_ID}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "subcategories",
+                "{{CATEGORY_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Recipe App",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}",
+          "host": [
+            "{{BASE_URL}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "EMAIL",
+      "value": "",
+      "description": "Stores the user email used for registration, login, password reset, and other authentication-related API requests."
+    },
+    {
+      "key": "USERNAME",
+      "value": "",
+      "description": "Stores the username generated or returned during authentication and user-related API testing."
+    },
+    {
+      "key": "SLUG",
+      "value": "",
+      "description": "Stores the recipe slug used for fetching recipes through SEO-friendly URLs."
+    },
+    {
+      "key": "RECIPE_ID",
+      "value": "",
+      "description": "Stores the unique recipe identifier returned after recipe creation for use in update, delete, and fetch operations."
+    },
+    {
+      "key": "REVIEW_ID",
+      "value": "",
+      "description": "Stores the unique review identifier returned after review creation and reused for review-related API operations."
+    },
+    {
+      "key": "USER_ID",
+      "value": "",
+      "description": "Stores the unique user identifier returned by user-related endpoints."
+    },
+    {
+      "key": "CATEGORY_ID",
+      "value": "",
+      "description": "Stores the category identifier used for retrieving category-specific data and validating recipe-category relationships during API testing."
+    },
+    {
+      "key": "SUB_CATEGORY_ID",
+      "value": "",
+      "description": "Stores the subcategory identifier used for retrieving subcategory-specific data and creating recipes associated with a subcategory."
+    },
+    {
+      "key": "RESET_TOKEN",
+      "value": "",
+      "description": "Stores the password reset token generated during forgot-password testing and used for reset-password API validation."
+    },
+    {
+      "key": "randomAvatar",
+      "value": ""
+    },
+    {
+      "key": "randomDifficulty",
+      "value": ""
+    }
+  ]
+}
